@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h2>回复：{{ topic.title }}</h2>
+{% endblock header %}
+
+{% block page_content %}
+  {{ wtf.quick_form(form) }}
+  <h4><a href="{{ url_for('topic', topicId=topic.pid) }}">返回</a></h4>
+{% endblock page_content %}

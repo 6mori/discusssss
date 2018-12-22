@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h2>{{ topic.title }}</h2>
+  <h4>
+    <span>标签：</span>
+    {% for tag in tags %}
+      <span><a href="{{ url_for('tag', tagId=tag.tid) }}">{{ tag.tname }}</a></span>
+    {% endfor %}
+    {% if topic.uid == current_user.uid %}
+      <span><a href="{{ url_for('manage_tag', topicId=topic.pid) }}">管理</a></span>
+      <div><a href="{{ url_for('delete_topic', topicId=topic.pid) }}" onclick="{if(confirm('确定删除主题吗?所有的回复都会被删除。')){this.document.formname.submit();return true;}return false;}">删除主题</a></div>
+    {% endif %}
+  </h4>
+{% endblock header %}
+
+{% block page_content %}
+  <ul>
+    {% if comments %}
+      {% for comment in comments %}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span>{{ loop.index }}#</span>
+            <span><a href="{{ url_for('user', userId=comment.uid) }}">{{ comment.users.uname }}</a></span>
+            <span>回复于{{ comment.created_at }}</span>
+            {% if comment.users.uid == current_user.uid %}
+              <span><a href="{{ url_for('edit_comment', commentId=comment.cid) }}">编辑</a></span>
+            {% endif %}
+            {# <small>
+              <a href="{% url 'learning_logs:edit_entry' entry.id %}">edit entry</a>
+            </small> #}
+          </div>
+          <div class="panel-body">
+            {% if comment.updated_at != comment.created_at %}
+              <div>最后编辑于{{ comment.updated_at }}</div>
+            {% endif %}
+            <div>{{ comment.context }}</div>
+          </div>
+        </div> <!-- panel -->
+      {% endfor %}
+    {% else %}
+      There are no entries for this topic yet.
+    {% endif %}
+  </ul>
+  <h3><a href="{{ url_for('new_comment', topicId=topic.pid) }}">回复</a></h3>
+  <h4><a href="{{ url_for('board', boardId=topic.bid) }}">返回</a></h4>
+{% endblock page_content %}

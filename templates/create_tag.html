@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h2>新建标签</h2>
+{% endblock header %}
+
+{% block page_content %}
+    {{ wtf.quick_form(form) }}
+    <h4><a href="{{ url_for('manage_tag', topicId=topicId) }}">返回</a></h4>
+{% endblock page_content %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h2>登录</h2>
+{% endblock header %}
+
+{% block page_content %}
+
+  {# <!-- <form method="post" action="{{ url_for('login') }}" class="form">
+     
+    {% bootstrap_form form %}
+
+    {% buttons %}
+      <button name="submit", class="btn btn-primary">log in</button>
+    {% endbuttons %}
+
+    <input type="hidden" name="next" value="{{ url_for('index') }}"/>
+  </form> --> #}
+  {# {{ form.csrf_token }} #}
+  {{ wtf.quick_form(form) }}
+
+{% endblock page_content %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h2>标签：{{ tag.tname }}</h2>
+{% endblock header %}
+
+{% block page_content %}
+  {% if topics %}
+    <h3>主题</h3>
+    <ul>
+      {% for topic in topics %}
+        <li>
+          <h3>
+            <span><a href="{{ url_for('topic', topicId=topic.pid) }}">{{ topic.title }}</a></span>
+            <span>{{ topic.uname }}</span>
+            <span>发表于{{ topic.created_at }}</span>
+          </h3>        
+        </li> 
+      {% endfor %}
+    </ul>
+  {% else %}
+    <h4>该标签下还没有主题</h4>
+  {% endif%}
+{% endblock page_content %}

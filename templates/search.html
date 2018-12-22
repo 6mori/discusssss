@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h4>搜索：{{ searchContext }}</h4>
+{% endblock header %}
+
+{% block page_content %}
+  {% if topics %}
+    <h3>主题</h3>
+    <ul>
+      {% for topic in topics %}
+        <li>
+          <h3>
+            <span><a href="{{ url_for('topic', topicId=topic.pid) }}">{{ topic.title }}</a></span>
+            <span>{{ topic.users.uname }}</span>
+            <span>发表于{{ topic.created_at }}</span>
+          </h3>        
+        </li> 
+      {% endfor %}
+    </ul>
+  {% endif%}
+  {% if comments %}
+    <h3>回复</h3>
+    {% for comment in comments %}
+      <div class="panel panel-default">
+        {# <span class="panel-heading">
+          {{ comment.uname }}
+        </span> #}
+        <div class="panel-heading">
+          <span><a href="{{ url_for('topic', topicId=comment.pid) }}">{{ comment.topics.title }}</a></span>
+          <span><a href="{{ url_for('user', userId=comment.uid) }}">{{ comment.users.uname }}</a></span>
+            <span>回复于{{ comment.created_at }}</span>
+          {# <small>
+            <a href="{% url 'learning_logs:edit_entry' entry.id %}">edit entry</a>
+          </small> #}
+        </div>
+        <div class="panel-body">
+          {{ comment.context }}
+        </div>
+      </div> <!-- panel -->
+    {% endfor %}
+  {# {% else %}
+    <li>没有找到结果</li> #}
+  {% endif%}
+{% endblock page_content %}

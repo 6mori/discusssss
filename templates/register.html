@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h2>注册</h2>
+{% endblock header %}
+
+{% block page_content %}
+
+  {{ wtf.quick_form(form) }}
+
+{% endblock page_content %}

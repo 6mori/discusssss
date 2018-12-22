@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h1>Discusssss</h1>
+{% endblock header %}
+
+{% block page_content %}
+  {{ wtf.quick_form(form) }}
+
+  {% if (boards is defined) and boards %}
+    <h2>板块</h2>
+    <ul>
+      {% for board in boards %}
+        <li><h3><a href="{{ url_for('board', boardId=board.bid) }}">{{ board.bname }}</a></h3></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <h4>No topics have been added yet.</h4>
+  {% endif %}
+
+  {% if tags %}
+    <h3>标签</h3>
+    {% for tag in tags %}
+      <span><a href="{{ url_for('tag', tagId=tag.tid) }}">{{ tag.tname }}</a></span>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

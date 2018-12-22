@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h1>{{ user.uname }}</h1>
+  <h4>uid:{{ user.uid}}</h4>
+  <h4>注册时间{{ user.register_time|datetime('short') }}</h4>
+{% endblock header %}
+
+{% block page_content %}
+  <h3>主题</h3>
+  {% for topic in topics %}
+    <li>
+        <span><a href="{{ url_for('topic', topicId=topic.pid) }}">{{ topic.title }}</a></span>  
+        <span>发表于{{ topic.created_at|datetime() }}</span>  
+    </li> 
+  {% endfor %}
+
+  <h3>回复</h3>
+    {% for comment in comments %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <span><a href="{{ url_for('topic', topicId=comment.pid) }}">{{ comment.topics.title }}</a></span>
+          <span>回复于{{ comment.created_at|datetime() }}</span>
+        </div>
+        <div class="panel-body">
+          {{ comment.context }}
+        </div>
+      </div> <!-- panel -->
+    {% endfor %}
+{% endblock page_content %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h2>发表帖子</h2>
+{% endblock header %}
+
+{% block page_content %}
+  {# {{ wtf.form_field(form.title) }} #}
+  {{ wtf.quick_form(form) }}
+  {# {{ wtf.form_field(form.context, class="form-control text-body", rows=5) }}
+  {{ wtf.form_field(form.submit) }} #}
+{% endblock page_content %}

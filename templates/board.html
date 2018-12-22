@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h1>{{ board.bname }}</h1>
+{% endblock header %}
+
+{% block page_content %}
+  {% if topics %}
+    <ul>
+      {% for topic in topics %}
+        <li>
+          <h3>
+            <span><a href="{{ url_for('topic', topicId=topic.pid) }}">{{ topic.title }}</a></span>
+            <span>由{{ topic.users.uname }}</span>
+            <span>发表于{{ topic.created_at }}</span>
+            <span>最后回复于{{ topic.updated_at }}</span>
+          </h3>        
+        </li> 
+      {% endfor %}
+    </ul>
+  {% else %}
+    <li>还没有帖子</li>
+  {% endif%}
+
+  <h3><a href="{{ url_for('new_topic', boardId=board.bid) }}">发帖</a></h3>
+{% endblock page_content %}
